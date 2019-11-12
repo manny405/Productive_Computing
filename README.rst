@@ -1,6 +1,6 @@
 
-Introduction to Productive Computing: An Extension to Basic Training
-====================================================================
+Introduction to Productive Computing
+====================================
 
 
 Introduction
