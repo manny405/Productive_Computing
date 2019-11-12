@@ -1,14 +1,6 @@
-.. Test documentation master file, created by
-   sphinx-quickstart on Mon Sep 16 09:29:10 2019.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
 
 Introduction to Productive Computing: An Extension to Basic Training
 ====================================================================
-
-.. toctree::
-   :maxdepth: 2
-   :numbered:
 
 
 Introduction
@@ -150,12 +142,14 @@ running::
 
     vi ~/.bashrc
 
-The ``bashrc`` file is executed everytime that you log into your computer, 
-technically everytime you start a new bash terminal. This file is used to set
-your standard environment variables and aliases, and in general, setup your 
-default computing environment. The **best practice** when using a 
-new resource is to ask your group members for our standard ``bashrc`` file 
-for the new resource. 
+The ``bashrc`` file is executed everytime that you log into your computer
+and everytime you start a new bash terminal. This file is used to set
+your standard environment variables, aliases, etc., which is the same as saying 
+setting up your computing environment. The **best practice** when using a 
+new resource is to for a standard ``bashrc`` file for the machine to load in
+the basics for a new resource. Also, I encourage you to look at the bashrc
+file and try to understand what environment variables and aliases are being 
+used. 
 
 
 Slurm
@@ -170,10 +164,10 @@ The cluster typically consists of the **head** node and **compute** nodes. The
 **head** node is the node that users log into. The **head** node also controls
 the scheduling of calculations to the **compute** nodes. The **compute** nodes
 are where calculations are supposed to take place. Users will not have access 
-directly to the **compute** nodes and will have to send jobs to the **compute**
-nodes using the job scheduler. **Slurm** is one of the most popular job
-schedulers in the scientific compute world. This is because it's free, 
-open-source, and easy to use.
+directly to the **compute** nodes so they will have to send production compute 
+jobs to the **compute** nodes using the job scheduler. **Slurm** is one of the 
+most popular job schedulers in the scientific computing community . This is 
+because it's free, open-source, well documented, and easy to use.
 
 
 Slurm Introduction
@@ -195,8 +189,8 @@ that uses Slurm to schedule jobs and run::
 This computer cluster has been partitioned into five different partitiones, 
 gpu, cpu, debug, idle, and highmem. Nodes in the same partition will have 
 the same computer hardware, but nodes in different partitiones may not. For
-example, nodes in the gpu partition have GPUs installed, but nodes in the
-cpu partition do not. We can find out more about the resources that a specific
+example, nodes in the ``gpu`` partition have GPUs installed, but nodes in the
+``cpu`` partition do not. We can find out more about the resources that a specific
 node has by typing::
 
     >>> scontrol show node d001
@@ -224,13 +218,13 @@ Let's go back and look again at the output of sinfo::
     cpu          up 7-00:00:00     43  alloc d[001-006,
     debug        up      10:00      2   idle e[001-002]
 
-Looking at the STATE of the partition will tell you the state of the nodes. 
-In this case, all of the nodes in the cpu partition are allocated and the 
-2 nodes in the debug partition are both idle. Additionally, looking at the
-TIMELIMIT tells you how long jobs can run in each parititon. The debug 
+Looking at the STATE of the partition will tell you the inromation about nodes. 
+In this case, all of the nodes in the ``cpu`` partition are allocated and the 
+2 nodes in the ``debug`` partition are both idle. Additionally, looking at the
+TIMELIMIT tells you how long jobs can run in each parititon. The ``debug``
 partition says that jobs may only run for 10 minutes. This partition is used
-for testing that calculations work before submitting them for production 
-calculations in the cpu partition. 
+for testing that your production calculations work before submitting it to 
+the ``cpu`` partition, which may have a long queue.
 
 Let's submit our first job to the Slurm schedule::
 
@@ -267,12 +261,11 @@ https://slurm.schedmd.com/squeue.html
 
 We may now combine Slurm submission scripts with module files by adding 
 ``module load`` statements to the submission script. This is extremely powerful.
-It enables allows you to modify the computing environment on the compute node 
+It enables you to modify the computing environment on the compute node 
 extremely easily for specific calculations. Also, it doesn't change anything
-about your current computing environment. It is **best practice**
+about your current environment variables. It is **best practice**
 to include all ``module load`` statements necessary for running the calculation,
-even if you have loaded these modules into your current environment already.
-
+even if you have loaded these modules into your current environment already. 
 
 
 Github
@@ -280,7 +273,11 @@ Github
 Github stores your code on the cloud. Github gives you an easy way to 
 push your code to the cloud, which is almost universally installed on Linux 
 computers, and an easy to pull your code from the cloud onto any new device. 
-Sign-up for a Github account if you have not done so already. 
+Sign-up for a Github account if you have not done so already. Then, watch
+a Youtube video that gives an introduction to what each git command does. 
+Also, take notes during the video and begin compiling useful
+commands into a textfile. If you ever need to remember a command, you should
+check this file. 
 
 
 FileZilla
@@ -288,8 +285,8 @@ FileZilla
 
 FileZilla is a great software for transfering files from external computers
 using a simple GUI interface. You can store the computers you would like to 
-connect to under ``File->Site Manager``. Download and install FileZilla and
-begin using it.
+connect to under ``File->Site Manager``. Download and install FileZilla. It 
+should very natural to begin using this software on your own. 
 
 
 Visual Studio Code
@@ -297,24 +294,43 @@ Visual Studio Code
 
 Visual Studio Code is a integrated development environment (IDE) developed
 by Microsoft. Visual Studio Code has plug-ins for developing almost any 
-type of code. Most import for us, it has a plug-in that can connect to the 
+type of code. Most import for us, it has an extension that can connect to the 
 file system of external computers making developement much easier on these
-computers. The plug-in is called *ssh file systems*. 
+computers. The extension is called *SSH FS*. After watching a video 
+online about how to get started using Visual Studio Code, install the 
+extension *SSH FS*, authored by Kelvin Schoofs. Then, using 
+``cmd+shift+p`` on Mac or ``ctrl+shift+p`` on windows, type::
+
+    create a SSH FS configuration
+    
+and click on the first option that comes up. Then, using the 
+``Global settings.json`` option, click ``Save``. Then add the 
+``Host, Root, and Username`` and for the Password always use
+``Prompt``. You may also add a private key.  Click ``Save. When you switch back 
+to the ``Explorer``, you will see ``SSH FILE SYSTEMS`` at the bottom of the 
+``Explorer`` window. You should be able to see the new connection available. 
+Connect and you will be able to navigate and open the files on the remote computer
+as if they were on your desktop. Please note that when you edit a file, the file
+is not resynced with the remote computer until you save the file.
+
+When using Visual Studio Code, you may also open a terminal under the terminal
+menu at the top of the window. You can have a file on the remote server open in 
+the editor with a terminal in the same directory all in one window.  
 
 
 Conclusion and How to Get Help
 ------------------------------
 The purpose of this document is to get you up and running on the complex
-computing environments you will find on computer clusters. We now understand 
-environment variables and the Slurm scheduler and how to interactive with 
-them. Also, we have learned best practices to avoid software headaches. 
+computing environments you will find on computer clusters. You should now 
+understand environment variables and the Slurm scheduler. Also, you have 
+learned best practices that will save computer headaches. 
 
-Lastly, if you do run into an error, do not panick. Errors are normal and 
-debugging is part of learning. The first thing you should do is read the error
-carefully.
-
-refer back to 
-this guide and see if the erro
+Lastly, if you do run into an error, do not panick. Errors are normal, and
+figuring out what is causing them is a good way to learn. First thing you 
+should read the error carefully. Usually, it will try to tell you what's 
+going on. If you have not seen the error before, and you can't figure out 
+the meaning, try to Google the error message. If you still can't decifer 
+the meaning, seek help.
 
 
 ..
