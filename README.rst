@@ -26,14 +26,15 @@ Environment Variables
 Environment variables are analogous to variables that you may define while
 writing a piece of code. For example, in Python, you can say::
     
-    my_string = "Hello World"
-    print(my_string)
+    >>> my_string = "Hello World"
+    >>> print(my_string)
+    "Hello World"
     
 Environment variables and variables that live in your computing environment, 
 and are associated with specific processes, such as your shell. Let's begin
 with an example. Open any `bash` terminal and type::
 
-    >>> echo $PATH
+    $ echo $PATH
     /Users/ibier/Software/anaconda3/bin:/usr/local/Modules/bin:/usr/local/bin
 
 You should get a colon separated list of directories. The same way that 
@@ -44,8 +45,8 @@ which is a child of your current terminal. Type ``echo $PATH`` again. You
 will get the same result as before. Let's do one more example. In your 
 original terminal type::
 
-    >>> export MY_VARIABLE="Hello World"
-    >>> echo $MY_VARIABLE
+    $ export MY_VARIABLE="Hello World"
+    $ echo $MY_VARIABLE
     Hello World
 
 So now, we know what environment variables are and we know where they exist, 
@@ -59,27 +60,27 @@ for executables. Executibles, for example, are any command you type in
 your terminal. ``ls, cd, pwd, python, mpirun`` are all executibles. You can 
 see where your terminal is typing::
 
-    >>> which cd
+    $ which cd
     /usr/bin/cd
     
 When you specify an executible, the computer begins searching for this 
 executable in the first directory provided in ``PATH`` environment variable.
 If it doesn't find the correct executible there, it looks in the next directory
 in the list, and so on, until it finds it. If it doesn't find it, the ``which``
-command returns nothing. Let's take a look at another example::
+command returns nothing. Let's take a look at another example from my terminal::
 
-    >>> echo $PATH
+    $ echo $PATH
     /Users/ibier/Software/anaconda3/bin:/usr/local/Modules/bin:/usr/local/bin
-    >>> which python
+    $ which python
     /Users/ibier/Software/anaconda3/bin/python
-    >>> PATH=/Users/ibier/Software/anaconda2/bin:$PATH
-    >>> echo $PATH
+    $ PATH=/Users/ibier/Software/anaconda2/bin:$PATH
+    $ echo $PATH
     /Users/ibier/Software/anaconda2/bin:/Users/ibier/Software/anaconda3/bin:/usr/local/Modules/bin:/usr/local/bin
-    >>> which python
+    $ which python
     /Users/ibier/Software/anaconda2/bin/python
 
 By adding another directory to the beginning of the ``PATH`` environment 
-variable, I've changed my Anaconda distribution from Python 3 to Python 3. 
+variable, I've changed my Anaconda distribution from Python 3 to Python 2. 
 
 Environment variables are useful, but they are a big source of difficulties 
 when new users begin running calculations. It's very often to get an error
@@ -89,7 +90,7 @@ their path.
 
 However, if you're managing many different environments, changing the
 environment variables manually becomes a big headache. Luckily many people have
-shared also shared headache over the years and created solutions for us. 
+shared this headache over many years and created intelligent solutions. 
 
 
 Environment Modules
@@ -98,30 +99,30 @@ Environment Modules
 Environment modules is one of the most universally used pieces of software 
 in the world of scientific computing. You will find environment modules on
 every desktop, computer cluster, and supercomputer that we use. You may 
-even install it on your own laptop if your using Linux or Windows Subsystem
+even install it on your own laptop easily if your using Linux or Windows Subsystem
 for Linux. Environment modules will manage your environment for you
 by appending directories and automatically removing paths from environment
 variables. 
 
 
-``ssh`` on one of our local desktops (or any computer cluster) and
+``ssh`` to one of our local desktops (or any computer cluster) and
 type::
 
-    module av
+    $ module av
 
 This will show you all of the ``modules`` available to you. Similarly, you can 
 see all modules you are currently using by typing::
 
-    module list
+    $ module list
 
 You can load a module into your computing environment by typing::
 
-    module load intel
+    $ module load intel
 
 where ``intel`` is the desired module. After you are done, you can remove 
 it by type::
 
-    module unload intel
+    $ module unload intel
 
 Remember, all the environment modules are doing are modifying environment 
 variables. There's no magic involved. 
@@ -130,7 +131,7 @@ When anyone installs a new software, they should install it in a place that
 makes it available to everyone and create a module file to go along with it. 
 By adhering to this **best practice**, only one person should ever have to go 
 through the headache of installing new software. If you need to create
-a modulefile for yourself, any experienced system administrator would be able
+a modulefile for yourself, any experienced system administrator should be able
 to help you. 
 
 
